@@ -26,15 +26,15 @@ export const BrandCard = ({ brand }: BrandCardProps) => {
       {/* 內容區域 */}
       <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end h-full">
         <div>
-          <span className="inline-block px-2 py-1 mb-2 text-xs font-bold text-white/90 bg-white/20 backdrop-blur-md rounded border border-white/10">
+          <span className="inline-block px-2 py-1 mb-2 text-xs font-bold text-white/90 bg-white/20 backdrop-blur-md rounded border border-white/10 truncate max-w-full">
             {brand.specialty}
           </span>
           
-          <h3 className="text-xl font-bold text-white mb-2 drop-shadow-lg">
+          <h3 className="text-xl font-bold text-white mb-2 drop-shadow-lg line-clamp-1">
             {brand.name}
           </h3>
           
-          <p className="text-sm text-gray-200 line-clamp-2 leading-relaxed mb-3 opacity-90">
+          <p className="text-sm text-gray-200 line-clamp-2 leading-relaxed mb-3 opacity-90 h-[3.25em]">
             {brand.description}
           </p>
 
