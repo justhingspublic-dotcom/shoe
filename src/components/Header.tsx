@@ -36,8 +36,8 @@ export const Header = () => {
 
   const navLinkStyle = (path: string) => {
     const active = location.pathname === path;
-    // 只過渡文字顏色，不過渡背景
-    const baseStyle = "text-sm font-medium px-4 py-2 rounded-full border transition-[color] duration-300";
+    // 只過渡顏色和背景，不過渡 backdrop-filter 避免閃爍
+    const baseStyle = "text-sm font-medium px-4 py-2 rounded-full border transition-[color,background-color,border-color] duration-300";
     
     if (isWhiteTextMode) {
       // 深色背景：毛玻璃半透明膠囊
@@ -102,8 +102,8 @@ export const Header = () => {
 
           {/* 右：搜尋框 + 功能按鈕 */}
           <div className="hidden md:flex items-center justify-end space-x-3 flex-1">
-            {/* 搜尋輸入框 - 不做背景過渡 */}
-            <div className={`flex items-center px-4 py-2 rounded-full border ${
+            {/* 搜尋輸入框 - 只過渡顏色屬性，不過渡 backdrop-filter */}
+            <div className={`flex items-center px-4 py-2 rounded-full border transition-[color,background-color,border-color] duration-300 ${
               isWhiteTextMode 
                 ? 'bg-white/15 backdrop-blur-md border-white/20 text-white placeholder-white/60' 
                 : 'bg-black/5 border-transparent text-gray-900 placeholder-gray-400 focus-within:bg-black/10'
