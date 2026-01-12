@@ -81,10 +81,16 @@ export const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* 左：Logo */}
-          <Link to="/" className="flex items-center space-x-3 group flex-1">
-            <span className={`text-xl font-bold tracking-tight transition-colors duration-300 ${logoStyle()}`}>
-              台灣鞋品協會
-            </span>
+          <Link to="/" className="flex items-center gap-3 group flex-1">
+            <div className={`flex flex-col ${logoStyle()} transition-colors duration-300`}>
+              <div className="flex items-baseline gap-1 leading-none" style={{ fontFamily: "'Noto Serif TC', serif" }}>
+                <span className="text-2xl font-black tracking-tight">台灣</span>
+                <span className="text-xl font-bold tracking-widest">鞋品協會</span>
+              </div>
+              <span className="text-[10px] tracking-[0.3em] font-light uppercase opacity-70 leading-tight mt-1">
+                Taiwan Footwear
+              </span>
+            </div>
           </Link>
 
           {/* 中：Desktop Navigation */}
