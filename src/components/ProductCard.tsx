@@ -40,7 +40,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         {/* 折扣標籤 */}
         {hasDiscount && (
           <div className="absolute top-3 right-3">
-            <span className="px-2.5 py-1 bg-red-500 text-white text-xs font-bold rounded-md">
+            <span className="px-2.5 py-1 bg-gray-900 text-white text-xs font-bold rounded-full">
               -{discountPercent}%
             </span>
           </div>
@@ -49,7 +49,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
       {/* 商品資訊 */}
       <div className="p-5 flex flex-col flex-grow">
-        <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
+        <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors duration-200 line-clamp-1">
           {product.name}
         </h3>
         <p className="text-sm text-gray-500 mb-4 line-clamp-2 leading-relaxed flex-grow">
@@ -57,21 +57,21 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </p>
 
         {/* 底部價格與按鈕區域 */}
-        <div className="mt-auto">
-          <div className="flex items-end gap-2 mb-3">
-            <span className="text-2xl font-bold text-blue-600">
+        <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-bold text-gray-900">
               NT$ {product.price.toLocaleString()}
             </span>
             {hasDiscount && (
-              <span className="text-sm text-gray-400 line-through mb-1">
+              <span className="text-xs text-gray-400 line-through">
                 ${product.originalPrice!.toLocaleString()}
               </span>
             )}
           </div>
 
-          <div className="w-full py-2.5 bg-gray-50 text-center text-sm font-semibold text-gray-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-            查看詳情
-          </div>
+          <span className="text-sm font-medium text-sky-600 group-hover:translate-x-1 transition-transform duration-200">
+            查看詳情 →
+          </span>
         </div>
       </div>
     </Link>

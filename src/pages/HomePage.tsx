@@ -26,7 +26,10 @@ const slides = [
 
 export const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const featuredProducts = products.filter((p) => p.isFeatured).slice(0, 8);
+  // 取前 5 個商品做 1+4 佈局
+  const featuredProducts = products.filter((p) => p.isFeatured).slice(0, 5);
+  const heroProduct = featuredProducts[0];
+  const sideProducts = featuredProducts.slice(1);
 
   // 自動輪播
   useEffect(() => {
@@ -57,7 +60,8 @@ export const HomePage = () => {
               alt={slide.alt}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/40"></div>
+            {/* 增強對比度的漸層遮罩 */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
           </div>
         ))}
 
@@ -89,31 +93,31 @@ export const HomePage = () => {
         </div>
 
         {/* 主要文字內容 */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center -mt-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left -mt-20">
           <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-sm font-bold mb-6 tracking-wide border border-white/20">
             ✨ 台灣在地 • 職人精神 • 走向世界
           </span>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-8 tracking-tight leading-tight drop-shadow-lg">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-8 tracking-tight leading-tight drop-shadow-xl max-w-4xl">
             探索台灣製鞋工藝<br />
-            <span className="text-blue-400">
+            <span className="text-sky-400">
               邁出自信步伐
             </span>
           </h1>
-          <p className="text-xl text-gray-100 mb-10 leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+          <p className="text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl drop-shadow-md">
             匯聚台灣優質鞋品品牌，從經典工藝到現代創新，
             為您提供最舒適、最時尚的穿著體驗。
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link
               to="/products"
-              className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg hover:-translate-y-1"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-sky-50 transition-colors duration-200"
             >
               瀏覽精選商品
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
             <Link
               to="/brands"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/30 font-bold rounded-full hover:bg-white/20 transition-all duration-300"
+              className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white/10 transition-colors duration-200"
             >
               探索合作品牌
             </Link>
@@ -146,36 +150,85 @@ export const HomePage = () => {
       </section>
 
       {/* Featured Products Section - 升級設計 */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        {/* 裝飾背景文字 */}
-        <div className="absolute top-10 left-10 text-[10rem] font-bold text-gray-50 opacity-60 select-none -z-10 pointer-events-none">
-          TRENDING
-        </div>
-        
+      <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 relative">
-            <span className="text-blue-600 font-bold tracking-wider uppercase text-sm mb-2 block">Selected for you</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">本季精選熱銷</h2>
-            <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
-            <p className="mt-6 text-xl text-gray-500 max-w-2xl mx-auto">
-              嚴選本季最受歡迎的鞋款，結合時尚設計與極致舒適，
-              讓您的每一步都充滿自信。
-            </p>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+            <div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">本季精選熱銷</h2>
+              <p className="text-lg text-gray-500 max-w-xl">
+                嚴選本季最受歡迎的鞋款，結合時尚設計與極致舒適，
+                讓您的每一步都充滿自信。
+              </p>
+            </div>
+            <Link
+              to="/products"
+              className="hidden md:inline-flex items-center text-sm font-bold text-gray-500 hover:text-sky-600 transition-colors group"
+            >
+              查看所有商品 <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-          
-          <div className="mt-16 text-center">
-             <Link
-              to="/products"
-              className="inline-flex items-center justify-center px-8 py-3 border-2 border-gray-900 text-gray-900 font-bold rounded-full hover:bg-gray-900 hover:text-white transition-all duration-300"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* 左側：主打 Hero 商品 */}
+            <Link 
+              to={`/products/${heroProduct.id}`}
+              className="group relative flex flex-col h-full min-h-[500px] lg:min-h-full rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
             >
-              查看所有商品 <ArrowRight className="ml-2 w-5 h-5" />
+              <div className="absolute inset-0">
+                <img 
+                  src={heroProduct.images[0]} 
+                  alt={heroProduct.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90"></div>
+              </div>
+              
+              <div className="relative h-full flex flex-col justify-end p-8 lg:p-12 text-white">
+                <div className="mb-4">
+                  <span className="px-3 py-1 bg-sky-500 text-white text-xs font-bold rounded-full mb-4 inline-block">
+                    本季主打
+                  </span>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {heroProduct.tags.map(tag => (
+                      <span key={tag} className="text-sm font-medium text-gray-300 border border-white/30 px-3 py-1 rounded-full backdrop-blur-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                <h3 className="text-3xl lg:text-5xl font-bold mb-4 leading-tight">
+                  {heroProduct.name}
+                </h3>
+                
+                <p className="text-lg text-gray-200 mb-8 line-clamp-2 max-w-md">
+                  {heroProduct.description}
+                </p>
+                
+                <div className="flex items-center justify-between border-t border-white/20 pt-6">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-3xl font-bold text-white">
+                      NT$ {heroProduct.price.toLocaleString()}
+                    </span>
+                    {heroProduct.originalPrice && (
+                      <span className="text-lg text-gray-400 line-through">
+                        ${heroProduct.originalPrice.toLocaleString()}
+                      </span>
+                    )}
+                  </div>
+                  <span className="px-6 py-3 bg-white text-gray-900 font-bold rounded-full hover:bg-sky-50 transition-colors flex items-center gap-2">
+                    立即購買 <ArrowRight className="w-5 h-5" />
+                  </span>
+                </div>
+              </div>
             </Link>
+
+            {/* 右側：4 個商品 Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {sideProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -183,53 +236,71 @@ export const HomePage = () => {
       {/* Brands Section - 升級設計 */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12">
-            <div className="mb-6 md:mb-0 text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">合作品牌</h2>
-              <p className="text-gray-500 text-lg">匯聚台灣優質製鞋工藝</p>
+          {/* 標題區域 - 改為與商品區塊一致的 "左標題 + 右連結" 佈局 */}
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+            <div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">合作品牌</h2>
+              <p className="text-lg text-gray-500 max-w-xl">
+                匯聚台灣優質製鞋工藝，每一個品牌都代表著一份對品質的堅持。
+              </p>
             </div>
             <Link
               to="/brands"
-              className="text-blue-600 font-bold hover:text-blue-700 flex items-center transition-colors text-lg"
+              className="hidden md:inline-flex items-center text-sm font-bold text-gray-500 hover:text-sky-600 transition-colors group"
             >
-              探索所有品牌 <ArrowRight className="ml-2 w-5 h-5" />
+              探索所有品牌 <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {brands.map((brand) => (
+            {brands.slice(0, 8).map((brand) => (
               <BrandCard key={brand.id} brand={brand} />
             ))}
+          </div>
+          
+          {/* 手機版顯示的底部連結 */}
+          <div className="mt-12 text-center md:hidden">
+            <Link
+              to="/brands"
+              className="inline-flex items-center px-8 py-3 bg-white text-gray-900 font-bold rounded-lg shadow-sm hover:shadow-md transition-all border border-gray-100"
+            >
+              探索所有品牌 <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* CTA Section - 升級設計 */}
-      <section className="relative py-32 bg-gray-900 overflow-hidden">
-        {/* 背景圖片 + 遮罩 */}
+      <section className="relative py-32 overflow-hidden">
+        {/* 背景圖片 - 使用更有生活感的圖片 */}
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1920&auto=format&fit=crop" 
-            alt="Background" 
-            className="w-full h-full object-cover opacity-30"
+            src="https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?q=80&w=1920&auto=format&fit=crop" 
+            alt="Start your journey" 
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent"></div>
+          {/* 漸層遮罩：左深右淺，讓文字可讀但保留圖片氛圍 */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+          {/* 底部漸層：與 Footer 無縫接軌 */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-black"></div>
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-8 tracking-tight leading-tight">
-            準備好開始您的旅程了嗎？
-          </h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-            穿上一雙好鞋，帶您去任何想去的地方。
-            立即探索我們的完整系列，找到專屬於您的那一雙。
-          </p>
-          <Link
-            to="/products"
-            className="inline-flex items-center justify-center px-10 py-4 bg-white text-gray-900 font-bold rounded-full hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-2xl text-lg"
-          >
-            立即選購
-          </Link>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
+              準備好開始<br/>您的旅程了嗎？
+            </h2>
+            <p className="text-xl text-gray-200 mb-10 leading-relaxed font-light">
+              穿上一雙好鞋，帶您去任何想去的地方。<br className="hidden sm:block"/>
+              探索我們的完整系列，找到專屬於您的那一雙。
+            </p>
+            <Link
+              to="/products"
+              className="inline-flex items-center justify-center px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-sky-400 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-xl text-lg"
+            >
+              立即選購
+            </Link>
+          </div>
         </div>
       </section>
     </div>

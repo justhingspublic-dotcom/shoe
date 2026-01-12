@@ -47,12 +47,12 @@ export const AllProductsPage = () => {
   return (
     <div className="min-h-screen pt-28 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Area */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+        {/* Header Area - 升級樣式 */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 border-b border-gray-100 pb-8">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight">所有商品</h1>
-            <p className="text-gray-600 text-lg">
-              探索我們精心挑選的優質鞋款，共 {filteredProducts.length} 件商品
+            <h1 className="text-4xl font-black text-gray-900 mb-2 tracking-tight">所有商品</h1>
+            <p className="text-gray-500 font-light">
+              探索我們精心挑選的優質鞋款，共 <span className="font-bold text-black">{filteredProducts.length}</span> 件商品
             </p>
           </div>
 
@@ -77,20 +77,20 @@ export const AllProductsPage = () => {
                 <Filter className="w-5 h-5" />
                 <span>商品分類</span>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {categories.map(category => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 flex items-center justify-between group ${
+                    className={`w-full text-left px-4 py-3 text-sm transition-all duration-200 flex items-center justify-between group border-l-2 ${
                       selectedCategory === category
-                        ? 'bg-blue-50 text-blue-600 font-bold'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'
+                        ? 'border-black font-bold text-black pl-5'
+                        : 'border-transparent text-gray-500 hover:text-black hover:pl-5'
                     }`}
                   >
                     <span>{category}</span>
                     {selectedCategory === category && (
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-black"></div>
                     )}
                   </button>
                 ))}
@@ -99,16 +99,16 @@ export const AllProductsPage = () => {
           </div>
 
           {/* Mobile Filter Bar */}
-          <div className="lg:hidden mb-6">
+          <div className="lg:hidden mb-8">
             <div className="flex overflow-x-auto pb-4 gap-3 scrollbar-hide">
               {categories.map(category => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap border ${
+                  className={`flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 whitespace-nowrap border ${
                     selectedCategory === category
-                      ? 'bg-blue-600 text-white border-blue-600'
-                      : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600'
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white text-gray-500 border-gray-200 hover:border-gray-900 hover:text-gray-900'
                   }`}
                 >
                   {category}
@@ -137,7 +137,7 @@ export const AllProductsPage = () => {
                     setSelectedCategory('全部');
                     setSortBy('default');
                   }}
-                  className="btn-secondary"
+                  className="px-6 py-2.5 bg-black text-white font-bold rounded-full hover:bg-gray-800 transition-colors"
                 >
                   清除所有篩選
                 </button>

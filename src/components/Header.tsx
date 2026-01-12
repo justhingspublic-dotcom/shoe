@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Search, ShoppingBag, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export const Header = () => {
@@ -7,8 +7,8 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
-  // 品牌詳情頁通常有深色大圖背景，所以也需要白字模式
-  const isBrandPage = location.pathname.startsWith('/brands/');
+  // 品牌館頁面（列表頁和詳情頁）都有深色 Hero，需要白字模式
+  const isBrandPage = location.pathname === '/brands' || location.pathname.startsWith('/brands/');
 
   // 監聽滾動事件以改變 Header 樣式
   useEffect(() => {
@@ -36,13 +36,20 @@ export const Header = () => {
 
   const navLinkStyle = (path: string) => {
     const active = location.pathname === path;
-    const baseStyle = "text-base font-medium transition-colors duration-300";
+    // 只過渡文字顏色，不過渡背景
+    const baseStyle = "text-sm font-medium px-4 py-2 rounded-full border transition-[color] duration-300";
     
     if (isWhiteTextMode) {
-      return `${baseStyle} ${active ? 'text-white font-bold' : 'text-white/80 hover:text-white'}`;
+      // 深色背景：毛玻璃半透明膠囊
+      return `${baseStyle} ${active 
+        ? 'bg-white/15 backdrop-blur-md text-white font-bold border-white/20' 
+        : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent'}`;
     }
     
-    return `${baseStyle} ${active ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`;
+    // 淺色背景：輕透明膠囊
+    return `${baseStyle} ${active 
+      ? 'bg-black/10 text-gray-900 font-bold border-transparent' 
+      : 'text-gray-600 hover:text-gray-900 hover:bg-black/5 border-transparent'}`;
   };
 
   const logoStyle = () => {
@@ -59,25 +66,56 @@ export const Header = () => {
     return 'hover:bg-gray-100 text-gray-700';
   }
 
+  const iconButtonStyle = () => {
+    const baseStyle = "p-2 rounded-full transition-all duration-300";
+    if (isWhiteTextMode) {
+      return `${baseStyle} text-white/80 hover:text-white hover:bg-white/10`;
+    }
+    return `${baseStyle} text-gray-600 hover:text-gray-900 hover:bg-black/5`;
+  };
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${headerStyle()}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <span className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${logoStyle()}`}>
+          {/* 左：Logo */}
+          <Link to="/" className="flex items-center space-x-3 group flex-1">
+            <span className={`text-xl font-bold tracking-tight transition-colors duration-300 ${logoStyle()}`}>
               台灣鞋品協會
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* 中：Desktop Navigation */}
+          <nav className="hidden md:flex items-center justify-center space-x-2 flex-1">
             <Link to="/" className={navLinkStyle('/')}>首頁</Link>
             <Link to="/products" className={navLinkStyle('/products')}>所有商品</Link>
             <Link to="/brands" className={navLinkStyle('/brands')}>品牌館</Link>
           </nav>
+
+          {/* 右：搜尋框 + 功能按鈕 */}
+          <div className="hidden md:flex items-center justify-end space-x-3 flex-1">
+            {/* 搜尋輸入框 - 不做背景過渡 */}
+            <div className={`flex items-center px-4 py-2 rounded-full border ${
+              isWhiteTextMode 
+                ? 'bg-white/15 backdrop-blur-md border-white/20 text-white placeholder-white/60' 
+                : 'bg-black/5 border-transparent text-gray-900 placeholder-gray-400 focus-within:bg-black/10'
+            }`}>
+              <Search className={`w-4 h-4 mr-2 ${isWhiteTextMode ? 'text-white/60' : 'text-gray-400'}`} />
+              <input 
+                type="text" 
+                placeholder="搜尋商品..." 
+                className="bg-transparent border-none outline-none text-sm w-32 placeholder-inherit"
+              />
+            </div>
+            <button className={iconButtonStyle()} aria-label="購物車">
+              <ShoppingBag className="w-5 h-5" />
+            </button>
+            <button className={iconButtonStyle()} aria-label="會員">
+              <User className="w-5 h-5" />
+            </button>
+          </div>
 
           {/* Mobile Menu Button */}
           <button

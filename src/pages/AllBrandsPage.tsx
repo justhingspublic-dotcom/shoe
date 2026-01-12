@@ -3,37 +3,51 @@ import { BrandCard } from '../components/BrandCard';
 
 export const AllBrandsPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 pt-28 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">品牌館</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            匯集台灣優質鞋品品牌，從傳統工藝到現代創新，
-            在這裡您可以找到最適合您的品牌故事與產品。
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Banner - 職人氛圍 */}
+      <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden">
+        {/* 背景圖片 - 製鞋工藝 */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop" 
+            alt="Brand stories" 
+            className="w-full h-full object-cover"
+          />
+          {/* 底部漸層遮罩 - 讓文字可讀 */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+          {/* 頂部漸層遮罩 - 讓 navbar 可讀 */}
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 to-transparent"></div>
+        </div>
+        
+        {/* 文字內容 */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
+          <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-md text-white text-xs font-bold rounded-full mb-4 border border-white/20 tracking-wider">
+            BRAND STORIES
+          </span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight">
+            品牌館
+          </h1>
+          <p className="text-lg text-gray-300 max-w-xl leading-relaxed">
+            每一個品牌，都有一段故事。<br className="hidden sm:block" />
+            探索台灣職人的製鞋精神，找到專屬於你的那一雙。
           </p>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Section Header */}
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">所有品牌</h2>
+            <p className="text-gray-500 mt-1">共 {brands.length} 個合作品牌</p>
+          </div>
         </div>
 
         {/* 品牌列表 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {brands.map(brand => (
             <BrandCard key={brand.id} brand={brand} />
           ))}
-        </div>
-
-        {/* 合作邀請區塊 */}
-        <div className="mt-20 bg-white rounded-2xl p-8 sm:p-12 border border-gray-100 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">想要加入我們嗎？</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            如果您也是台灣優質鞋品品牌，歡迎加入鞋品協會的大家庭，
-            讓我們一起推廣台灣製鞋工藝，走向世界。
-          </p>
-          <a
-            href="mailto:contact@taiwanshoes.org.tw"
-            className="inline-flex items-center justify-center px-8 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary-dark transition-all duration-300 hover:scale-105"
-          >
-            聯絡我們
-          </a>
         </div>
       </div>
     </div>

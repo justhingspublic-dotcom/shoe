@@ -1,25 +1,87 @@
 @import "tailwindcss";
 
+/* ========================================
+   台灣鞋品協會 - 活潑現代風格
+   主色: 灰、白、藍 (活潑詮釋)
+   ======================================== */
+
+:root {
+  /* 主要色彩 */
+  --color-primary: #0ea5e9;        /* 天空藍 - 活潑主色 */
+  --color-primary-dark: #0284c7;   /* 深天空藍 */
+  --color-primary-light: #38bdf8;  /* 淺天空藍 */
+  
+  /* 輔助藍色 */
+  --color-accent: #06b6d4;         /* 青藍 - 強調色 */
+  --color-blue-deep: #1e40af;      /* 深藍 - 用於特殊強調 */
+  
+  /* 灰階 */
+  --color-gray-900: #0f172a;       /* 最深灰（帶藍調）*/
+  --color-gray-800: #1e293b;       /* 深灰 */
+  --color-gray-600: #475569;       /* 中灰 */
+  --color-gray-400: #94a3b8;       /* 淺灰 */
+  --color-gray-200: #e2e8f0;       /* 更淺灰 */
+  --color-gray-100: #f1f5f9;       /* 背景灰 */
+  --color-gray-50: #f8fafc;        /* 最淺灰 */
+  
+  /* 白色 */
+  --color-white: #ffffff;
+  
+  /* 字體 - Noto Sans TC 專業穩定 */
+  --font-display: "Outfit", "Noto Sans TC", sans-serif;
+  --font-body: "Noto Sans TC", sans-serif;
+}
+
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900 antialiased;
-    font-family: "Inter", "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-body);
+    letter-spacing: 0.01em;
+  }
+  
+  /* 標題使用 Outfit + 台北黑體 */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer components {
-  /* 專業按鈕樣式 - 主要 */
+  /* ============ 按鈕樣式 ============ */
+  
+  /* 主要按鈕 - 單色實心，乾淨俐落 */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300;
+    @apply inline-flex items-center justify-center px-7 py-3.5 text-white font-semibold rounded-xl transition-colors duration-200;
+    background-color: var(--color-primary);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
+  }
+  .btn-primary:active {
+    background-color: #0369a1;
   }
   
-  /* 專業按鈕樣式 - 次要 */
+  /* 次要按鈕 - 邊框風格 */
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-white text-gray-800 font-bold border border-gray-200 rounded-full hover:bg-gray-50 hover:border-blue-200 hover:text-blue-600 hover:-translate-y-0.5 transition-all duration-300;
+    @apply inline-flex items-center justify-center px-7 py-3.5 bg-transparent text-gray-700 font-semibold border border-gray-300 rounded-xl transition-colors duration-200;
+  }
+  .btn-secondary:hover {
+    @apply border-gray-900 text-gray-900;
   }
 
-  /* 玻璃質感卡片 - 移除陰影，改用更乾淨的邊框 */
+  /* ============ 卡片樣式 ============ */
+  
+  /* 基礎卡片 - 極簡邊框，hover 只變邊框色 */
   .card-glass {
-    @apply bg-white border border-gray-100 hover:border-blue-200 transition-all duration-300;
+    @apply bg-white border border-gray-200 rounded-xl transition-colors duration-200;
+  }
+  .card-glass:hover {
+    @apply border-gray-400;
+  }
+  
+  /* ============ 強調色文字 ============ */
+  .text-accent {
+    color: var(--color-primary);
   }
 }
