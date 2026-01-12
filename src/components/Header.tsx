@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export const Header = () => {
@@ -51,13 +51,6 @@ export const Header = () => {
     }
     return 'text-gray-900';
   };
-
-  const logoIconStyle = () => {
-    if (isWhiteTextMode) {
-      return 'bg-white text-blue-600';
-    }
-    return 'bg-blue-600 text-white';
-  }
 
   const mobileButtonStyle = () => {
     if (isWhiteTextMode) {

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Filter, ChevronDown, Check } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { Select } from '../components/ui/Select';
@@ -13,7 +13,6 @@ const SORT_OPTIONS = [
 export const AllProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('全部');
   const [sortBy, setSortBy] = useState<string>('default');
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // 取得所有唯一的分類
   const categories = useMemo(() => {
@@ -122,7 +121,7 @@ export const AllProductsPage = () => {
           <div className="flex-grow z-0 relative">
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map((product, index) => (
+                {filteredProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
