@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+@layer components {
+  /* 專業按鈕樣式 - 主要 */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300;
+  }
+  
+  /* 專業按鈕樣式 - 次要 */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-white text-gray-800 font-bold border border-gray-200 rounded-full hover:bg-gray-50 hover:border-blue-200 hover:text-blue-600 hover:-translate-y-0.5 transition-all duration-300;
+  }
+
+  /* 玻璃質感卡片 - 移除陰影，改用更乾淨的邊框 */
+  .card-glass {
+    @apply bg-white border border-gray-100 hover:border-blue-200 transition-all duration-300;
+  }
+}
