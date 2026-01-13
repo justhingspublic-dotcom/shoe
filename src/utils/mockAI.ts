@@ -173,7 +173,6 @@ export const generateAIResponse = (userMessage: string): Message => {
   }
   
   // 常見問題意圖
-  let faqMatched = false;
   for (const [keyword, data] of Object.entries(faqDatabase)) {
     if (lowerMessage.includes(keyword)) {
       return {

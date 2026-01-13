@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, ArrowUp, Sparkles, ChevronDown } from 'lucide-react';
+import { MessageCircle, ArrowUp, ChevronDown } from 'lucide-react';
 import { generateAIResponse, getWelcomeMessage, type Message } from '../utils/mockAI';
 import { useNavigate } from 'react-router-dom';
 
