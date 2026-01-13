@@ -2,6 +2,7 @@ import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-d
 import { AnimatePresence } from 'framer-motion';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { AIChat } from './components/AIChat';
 import ScrollToTop from './components/ScrollToTop';
 import { PageTransition } from './components/PageTransition';
 import { HomePage } from './pages/HomePage';
@@ -57,6 +58,7 @@ function App() {
         </main>
         <Footer />
       </div>
+      <AIChat />
     </Router>
   );
 }
